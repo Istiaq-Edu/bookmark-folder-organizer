@@ -1,0 +1,66 @@
+name: Build Extension
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:  # Allows manual trigger from GitHub Actions tab
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install Pillow
+      
+      - name: Get version from manifest
+        id: get_version
+        run: |
+          VERSION=$(python -c "import json; print(json.load(open('bookmark-folder-organizer/manifest.json'))['version'])")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Extension version: $VERSION"
+      
+      - name: Package extension
+        run: python package_extension.py
+      
+      - name: List generated files
+        run: ls -lh dist/
+      
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: bookmark-folder-organizer-${{ steps.get_version.outputs.version }}
+          path: dist/*.xpi
+          retention-days: 90
+      
+      - name: Build summary
+        run: |
+          echo "## ✅ Extension Built Successfully!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Version:** ${{ steps.get_version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📦 Download" >> $GITHUB_STEP_SUMMARY
+          echo "Go to the **Artifacts** section above to download the .xpi file" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🔧 Install" >> $GITHUB_STEP_SUMMARY
+          echo "1. Download the artifact" >> $GITHUB_STEP_SUMMARY
+          echo "2. Extract the .xpi file" >> $GITHUB_STEP_SUMMARY
+          echo "3. Open Firefox → \`about:debugging\`" >> $GITHUB_STEP_SUMMARY
+          echo "4. Click 'Load Temporary Add-on'" >> $GITHUB_STEP_SUMMARY
+          echo "5. Select the .xpi file" >> $GITHUB_STEP_SUMMARY
