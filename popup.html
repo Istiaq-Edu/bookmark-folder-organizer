@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bookmark Folder Organizer</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Bookmark Folder Organizer</h1>
+    </header>
+
+    <main>
+      <section class="folder-selection">
+        <label for="folderSelector">Select Parent Folder:</label>
+        <select id="folderSelector" class="folder-selector">
+          <option value="">-- Select a folder --</option>
+        </select>
+        <p class="subfolder-count" id="subfolderCount">Subfolders to organize: 0</p>
+      </section>
+
+      <section class="date-format">
+        <fieldset>
+          <legend>Date Display Format:</legend>
+          <div class="radio-group">
+            <label>
+              <input type="radio" name="dateFormat" value="DD-MM-YY">
+              <span>DD-MM-YY</span>
+            </label>
+            <label>
+              <input type="radio" name="dateFormat" value="MM-DD-YY">
+              <span>MM-DD-YY</span>
+            </label>
+            <label>
+              <input type="radio" name="dateFormat" value="YYYY-MM-DD" checked>
+              <span>YYYY-MM-DD</span>
+            </label>
+          </div>
+        </fieldset>
+      </section>
+
+      <section class="actions">
+        <button id="rearrangeBtn" class="btn btn-primary" disabled>Rearrange</button>
+        <button id="revertBtn" class="btn btn-secondary" disabled>Revert</button>
+      </section>
+
+      <section class="status">
+        <div id="loadingSpinner" class="loading-spinner" hidden>
+          <div class="spinner"></div>
+          <span>Processing...</span>
+        </div>
+        <div id="statusMessage" class="status-message" hidden></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="services/dateParser.js"></script>
+  <script src="services/storageService.js"></script>
+  <script src="services/bookmarkService.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
