@@ -8,7 +8,7 @@ import zipfile
 from datetime import datetime
 
 # Configuration
-SOURCE_DIR = "bookmark-folder-organizer"
+SOURCE_DIR = "."  # Current directory (rory root)
 OUTPUT_DIR = "dist"
 EXTENSION_NAME = "bookmark-folder-organizer"
 

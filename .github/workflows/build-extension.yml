@@ -32,7 +32,7 @@ jobs:
       - name: Get version from manifest
         id: get_version
         run: |
-          VERSION=$(python -c "import json; print(json.load(open('bookmark-folder-organizer/manifest.json'))['version'])")
+          VERSION=$(python -c "import json; print(json.load(open('manifest.json'))['version'])")
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Extension version: $VERSION"
       
