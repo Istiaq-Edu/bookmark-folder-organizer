@@ -23,13 +23,8 @@ This extension organizes Tab Stash bookmark groups by reading the ISO 8601 times
 
 ## Installation
 
-### From GitHub Actions
-
-1. Go to the [Actions tab](https://github.com/Istiaq-Edu/bookmark-folder-organizer/actions)
-2. Click on the latest successful workflow run
-3. Download the `.xpi` file
-4. Open Firefox → `about:debugging` → "This Firefox" → "Load Temporary Add-on"
-5. Select the downloaded `.xpi` file
+### From Firefox Add-ons site.
+https://addons.mozilla.org/en-US/firefox/addon/tab-stash-folder-organizer/
 
 ### Manual Build
 
